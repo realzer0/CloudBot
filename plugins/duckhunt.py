@@ -244,19 +244,19 @@ def start_hunt(db, chan, message, conn):
         return
 
     if not chan.startswith("#"):
-        return "No hunting by yourself, that isn't safe."
+        return "Keine Jagd allein, das ist nicht sicher."
 
     check = get_state_table(conn.name, chan).game_on
     if check:
-        return "there is already a game running in {}.".format(chan)
+        return "es gibt bereits ein Spiel, das läuft in {}.".format(chan)
 
     set_game_state(db, conn, chan, active=True)
     set_ducktime(chan, conn.name)
     message(
-        "Ducks have been spotted nearby. "
-        "See how many you can shoot or save. "
-        "use .bang to shoot or .befriend to save them. "
-        "NOTE: Ducks now appear as a function of time and channel activity.",
+        "Enten wurden in der Nähe gesichtet."
+        "Sehen Sie, wie viele Sie erschießen oder retten können. "
+        "verwende .bang zu schießen oder .befriend zum retten. "
+        "Info: Enten erscheinen nun als Ergebnis von Zeit und Kanalaktivität.",
         chan
     )
 
@@ -287,9 +287,9 @@ def stop_hunt(db, chan, conn):
 
     if get_state_table(conn.name, chan).game_on:
         set_game_state(db, conn, chan, active=False)
-        return "the game has been stopped."
+        return "das Spiel wurde gestoppt."
 
-    return "There is no game running in {}.".format(chan)
+    return "Es läuft kein Spiel in {}.".format(chan)
 
 
 @hook.command("duckkick", permissions=["chanop", "op", "botcontrol"])
